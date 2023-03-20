@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}{{dish.dish_name}}{% endblock %}
+
+{% block content %}
+
+<div class="basket">
+    <h2>Корзина</h2>
+    <form action="" method="DELETE" id="delete-form" class="basket__form">
+        {% csrf_token %}
+        <table class="basket__table">
+            <thead>
+                <tr>
+                    <th>Название товара</th>
+                    <th>Количество</th>
+                    <th>Цена за единицу</th>
+                    <th>Общая цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prod in products_in_basket %}
+                    <tr>
+                        <td>
+                            {{ prod.product.product_name }}
+                        </td>
+                        <td>
+                            <input type="number" value="{{ prod.num }}">
+                        </td>
+                        <td>
+                            {{ prod.price_per_item }}
+                        </td>
+                        <td>
+                            <span class="total_prod_amount">
+                                {{ prod.total_price }}
+                            </span>
+                        </td>
+                        <td>
+                            <form method="POST" action="{% url 'delivery:basket_adding' %}" id="delete-form">
+                                {% csrf_token %}
+                                <button type="submit" id="delete-item" class="delete-item" data-product_id="{{ prod.id }}">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="order-sum">
+                <b>Итого: </b><span id="total_order_amount"></span>
+        </div>
+        <div class="order-btn">
+            <button class="custom-btn btn-6"><span>Заказать</span></button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

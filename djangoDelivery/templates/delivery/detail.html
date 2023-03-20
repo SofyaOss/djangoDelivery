@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{{restaurant.restaurant_name}}{% endblock %}
+
+{% block content %}
+
+<h2 class="rest-name">{{restaurant.restaurant_name}}</h2>
+<div class="raiting-wrapper">
+    <img src="/static/img/star.svg" alt="star image" class="raiting-wrapper__star">
+    <p class="raiting-wrapper__num">{{restaurant.restaurant_rating}}</p>
+</div>
+
+
+{% if products_list %}
+    <!-- <div class="product-wrapper"> -->
+    <div class="product-wrapper">
+        {% for prod in products_list %}
+            <div class="product-wrapper__card" style="width: 18rem;">
+                <a href="{% url 'delivery:info' prod.id %}">
+                    <img src="/media/{{ prod.product_image }}" alt="product image" class="product-wrapper__img">
+                </a>
+                <div class="product-wrapper__card-body">
+                    <a href="{% url 'delivery:info' prod.id %}"><p class="product-wrapper__card-title">{{prod.product_name}}</p></a>
+                    <p class="product-wrapper__price">{{prod.product_price}} руб.</p>
+                    <!-- btn btn-primary w-100 p-auto -->
+                    <form method="POST" action="{% url 'delivery:basket_adding' %}" id="detail-form"> {% csrf_token %}
+                        <button class="custom-btn btn-6 detail-submit" id="detail-submit" type="submit"
+                            data-product_id="{{ prod.id }}"
+                            data-num="1">В корзину</button>
+                    </form>
+                </div>
+            </div>
+        
+        {% endfor %}
+    </div>
+{% else %}
+<p style="text-align: center;">Здесь ничего нет!</p>
+
+{% endif %}
+
+{% endblock %}

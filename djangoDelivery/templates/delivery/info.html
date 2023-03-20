@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}{{dish.dish_name}}{% endblock %}
+
+{% block content %}
+
+<h2>{{product.product_name}}</h2>
+<div class="info-wrapper">
+    <img src="/media/{{ product.product_image }}" class="info-wrapper__img">
+    <div class="info-wrapper__container" >
+        <p class="info-wrapper__price">{{product.product_price}} руб.</p>
+        <div class="info-wrapper__buy-wrapper">
+            <form id="buy-product" action="{% url 'delivery:basket_adding' %}" class="info-wrapper__form">
+                {% csrf_token %}
+                <input type="number" name="number" id="number">
+                <button type="submit" id="submit-btn" class="info-wrapper__btn"
+                    data-product_id="{{ product.id }}"
+                    data-name="{{ product.product_name }}"
+                    data-price="{{ product.product_price }}"
+                >В корзину</button>
+            </form>
+            </div>
+                <p class="info-wrapper__deskription">{{ product.description }}</p>
+            </div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Рестораны {% endblock %}
+
+{% block content %}
+    <div class="form-wrapper">
+        <form class="form-wrapper__search">
+            <input type="text" placeholder="Введите название ресторана">
+            <button type="submit" class="form-wrapper__btn">Найти</button>
+        </form>
+    </div>
+    <div class="rest-wrapper">
+        {% for item in restaurant_list %}
+            <a href="{% url 'delivery:detail' item.id %}">
+                <div class="rest-wrapper__rest-card-wrapper">
+                    <img src="{{ item.rest_image }}" class="rest-wrapper__img" alt="restaurant image">
+                    <p class="rest-wrapper__title">{{item.restaurant_name}}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

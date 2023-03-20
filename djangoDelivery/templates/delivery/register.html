@@ -1,0 +1,104 @@
+<style>
+h2 {
+    margin-top: 70px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.form {
+    margin: auto;
+    max-width: 400px;
+    width: 100%;
+    min-height: 230px;
+    padding: 15px;
+    border: 1px solid black;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+.form__item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.form__btn {
+    border: 2px solid black;
+    padding: 10px 15px;
+    background-color: white;
+    cursor: pointer;
+}
+.form__btn:hover {
+    transition: .3s;
+    background-color: black;
+    color: white;
+}
+.after-form {
+    text-align: center;
+    margin-top: 50px;
+}
+</style>
+
+<h2>Регистрация</h2>
+<form method="POST" class="form">
+    {% csrf_token %}
+    <div class="form__item">
+        {{ form.username.label }}
+        {{ form.username }}
+    </div>
+    <div class="form__item">
+        {{ form.email.label }}
+        {{ form.email }}
+    </div>
+    <div class="form__item">
+        {{ form.password1.label }}
+        {{ form.password1 }}
+    </div>
+    <div class="form__item">
+        {{ form.password2.label }}
+        {{ form.password2 }}
+    </div>
+    <input type="submit" name="createUser" class="form__btn">
+</form>
+
+{{ form.errors }}
+
+<div class="after-form">
+    Уже есть аккаунт? <a href="{% url 'delivery:login' %}">Войти</a>
+</div>
+
+<!-- <form class="login-form" action="">
+    <h2>Регистрация</h2>
+    <div class="form-input-material">
+        {{ form.username.label }}
+        {{ form.username }}
+        <input type="text" name="username" id="username" placeholder="Логин" autocomplete="off" class="form-control-material" required />
+        <label for="username">Логин</label>
+    </div>
+    <div class="form-input-material">
+        {{ form.email.label }}
+        {{ form.email }}
+        <input type="email" name="email" id="email" placeholder="Почта" autocomplete="off" class="form-control-material" required />
+        <label for="username">Почта</label>
+    </div>
+    <div class="form-input-material">
+        {{ form.password1.label }}
+        {{ form.password1 }}
+        <input type="password" name="password1" id="password1" placeholder="Пароль" autocomplete="off" class="form-control-material" required />
+        <label for="password">Пароль</label>
+    </div>
+    <div class="form-input-material">
+        {{ form.password2.label }}
+        {{ form.password2 }}
+        <input type="password" name="password2" id="password2" placeholder="Пароль" autocomplete="off" class="form-control-material" required />
+        <label for="password">Повторите пароль</label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-ghost">Login</button>
+</form> -->
+
+<script>
+    var form_fields = document.getElementsByTagName('input');
+    form_fields[1].placeholder = 'Логин';
+    form_fields[2].placeholder = 'Почта';
+    form_fields[3].placeholder = 'Пароль';
+    form_fields[4].placeholder = 'Повторите пароль';
+</script>
